@@ -1,0 +1,61 @@
+# backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: interview
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: schino15/ebens-interview-backend:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          startupProbe:
+            httpGet:
+              path: /
+              port: 3000
+            failureThreshold: 50
+            periodSeconds: 10  
+          readinessProbe:
+            httpGet:
+              path: /health   
+              port: 3000            
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000            
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+---
+
+# backend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: interview
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: ClusterIP
