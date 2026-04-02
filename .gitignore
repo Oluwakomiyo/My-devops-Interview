@@ -3,3 +3,11 @@ node_modules/
 build/
 dist/
 logs/
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+*.tfvars.json
+.terraformrc
+terraform.rc
+crash.log
