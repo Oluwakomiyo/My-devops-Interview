@@ -21,7 +21,7 @@ This project demonstrates modern DevOps practices by building, containerizing, a
 Exposes a REST endpoint:
 
 ```
-GET /
+GET /api/message
 ```
 
 Response:
