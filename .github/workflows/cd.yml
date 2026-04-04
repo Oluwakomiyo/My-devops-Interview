@@ -56,11 +56,11 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -backend-config="resource_group_name=tf-state-rg" -backend-config="storage_account_name=tfstate" -backend-config="container_name=tfstate" -backend-config="key=prod.terraform.tfstate"
-        working-directory: ./terraform
+        working-directory: ./Terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: ./terraform
+        working-directory: ./Terraform
 
   # JOB 3: Deploy to Kubernetes
   deploy:
