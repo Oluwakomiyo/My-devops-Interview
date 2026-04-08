@@ -53,14 +53,24 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
+      
       - name: Terraform Init
-        run: terraform init -backend-config="resource_group_name=tf-state-rg" -backend-config="storage_account_name=tfstate" -backend-config="container_name=tfstate" -backend-config="key=prod.terraform.tfstate"
-        working-directory: ./Terraform
-
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=tf-state-rg" \
+            -backend-config="storage_account_name=<YOUR_STORAGE_ACCOUNT_NAME>" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=prod.terraform.tfstate"
+      
+      - name: Terraform Validate
+        run: terraform validate
+      
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=main.tfplan
+            
       - name: Terraform Apply
-        run: terraform apply -auto-approve
-        working-directory: ./Terraform
+        run: terraform apply -auto-approve main.tfplan  
 
   # JOB 3: Deploy to Kubernetes
   deploy:
