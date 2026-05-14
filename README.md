@@ -1,5 +1,7 @@
 # DevOps Interview Project
 
+![ArgoCD](https://img.shields.io/badge/managed%20by-ArgoCD-orange?logo=argo)
+
 ## Overview
 
 This project demonstrates modern DevOps practices by building, containerizing, and deploying a full-stack application using:
@@ -9,7 +11,7 @@ This project demonstrates modern DevOps practices by building, containerizing, a
 * Docker (Containerization)
 * Kubernetes (Orchestration)
 * Terraform (Infrastructure as Code)
-* GitHub Actions (CI/CD)
+* GitHub Actions, Argocd (CI/CD)
 * Cloud (Azure AKS)
 
 ---
@@ -142,13 +144,20 @@ az storage container create --name tfstate --account-name <YOUR_STORAGE_ACCOUNT_
 ## 3. Deployment Instructions
 
 ### Automatic Deployment
-1.  Push any change to the `main` branch.
-2.  GitHub Actions will:
-    *   Build and tag Docker images.
-    *   Push images to Docker Hub.
-    *   Provision/Update AKS infrastructure.
-    *   Inject the new image tags into Kubernetes manifests.
-    *   Apply manifests to the cluster.
+
+This application is deployed to Kubernetes using ArgoCD and GitHub Actions.
+
+#### Workflow
+
+1. Push changes to the `main` branch.
+2. GitHub Actions will:
+   - Build and tag Docker images.
+   - Push images to Docker Hub.
+   - Provision or update AKS infrastructure.
+   - Inject the new image tags into Kubernetes manifests.
+   - Commit/update deployment manifests.
+3. ArgoCD detects manifest changes in the repository.
+4. ArgoCD automatically syncs the Kubernetes cluster with the latest configuration.   
 
 ### Manual Verification
 To check the status of your deployment:
@@ -207,6 +216,11 @@ az group delete --name tf-state-rg --yes --no-wait
 * **GitHub Actions**: Automates CI/CD pipeline
 
 ---
+
+### Status Badge
+![CI](https://github.com/Oluwakomiyo/My-devops-Interview/actions/workflows/ci.yml/badge.svg)
+
+![CD](https://github.com/Oluwakomiyo/My-devops-Interview/actions/workflows/cd.yml/badge.svg)
 
 ## 👨‍💻 Author
 
