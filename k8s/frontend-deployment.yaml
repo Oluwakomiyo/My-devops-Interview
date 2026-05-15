@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: DOCKER_USER/frontend:{{IMAGE_TAG}}
+          image: schino15/ebens-interview-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -61,5 +61,5 @@ spec:
     app: frontend
   ports:
     - port: 80
-      targetPort: 5173
+      targetPort: 80
       nodePort: 30080
