@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: schino15/ebens-interview-backend:latest
+          image: schino15/ebens-interview-backend:1.0
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
