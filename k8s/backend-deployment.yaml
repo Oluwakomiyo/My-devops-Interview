@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
         - name: backend
-          image: DOCKER_USER/backend:{{IMAGE_TAG}}
+          image: schino15/ebens-interview-backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
           startupProbe:
             httpGet:
-              path: /
+              path: /health
               port: 3000
             failureThreshold: 50
             periodSeconds: 10  
